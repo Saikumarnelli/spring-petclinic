@@ -1,2 +1,11 @@
-this is for practice
-sai
+node('openjdk-11-mvn') {
+    stage('vcs') {
+         git branch: 'REL_INT_1.0', credentialsId: 'rsa_id', url: 'https://github.com/Saikumarnelli/spring-petclinic.git'
+}   
+    stage('build') {
+         sh '/opt/apache-maven-3.8.6/bin/mvn package'
+}   
+     stage('archive results') {
+         junit '**/surefire-reports/*.xml'
+}
+}
